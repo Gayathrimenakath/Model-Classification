@@ -1,0 +1,24 @@
+.table {
+   
+
+    top: 40px;
+    left: 30px;
+    height: 20vh;
+  width: 15vh;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: rgb(209, 209, 209);
+    color:black;
+    font-size:medium;
+  }
+
+
+
+td, th {
+  padding: 5px;
+  text-align: center;
+  height: 20px;
+}
+
+

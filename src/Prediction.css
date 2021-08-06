@@ -1,0 +1,17 @@
+.rowC{
+    
+    justify-content : 'space-between';
+    flex-direction:column;
+    display: inline-flex; 
+}
+
+svg {
+    margin-right: 5px;
+    color: whitesmoke;
+    }
+
+rect{
+    background-color: yellowgreen;
+    color: whitesmoke;
+}
+

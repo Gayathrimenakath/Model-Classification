@@ -19,14 +19,14 @@ const Image = ({ image}) => {
   );
 };
 
-const ImageList = ({ images, moveImage }) => {
+const ImageList = ({ images }) => {
   const renderImage = (image, index) => {
     return (
       <Image
         image={image}
         index={index}
         key={`${image.id}-image`}
-        moveImage={moveImage}
+       
       />
     );
   };

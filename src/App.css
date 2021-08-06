@@ -1,9 +1,21 @@
-.App {
-  max-width: 960px;
+
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  font-size: 62.5%;
+  background: #dadada;
+  font-family: "Open Sans", sans-serif;
+  line-height: 2;
+  background-color: #313333;
   margin: 10px auto;
+  color:rgb(231, 228, 228);
 }
 
-.text-center {
+
+
+.text-center, .file-list {
   display: flex;
   height: 100%;
   justify-content: center;
@@ -11,10 +23,24 @@
   text-align: center;
 }
 
+ button{
+  /*Change the width as much as you like, but make sure 
+  margin-left and margin-right + width = 100%*/
+
+  width: 200px;
+  height: 50px;
+  margin-left:45%;
+  margin-right:50%;
+  background-color: teal;
+  font-size: 13px;
+  color:white;
+}
+
+
 /* Dropzone */
 .dropzone {
   padding: 30px;
-  height: 30vh;
+  height: 20vh;
   border: 5px dashed #7649bc;
   outline: none;
   cursor: pointer;
@@ -26,8 +52,8 @@
 .dropzone-content {
   align-self: center;
   font-size: 24px;
-  border: 5px dashed #7649bc;
-  height: 25vh;
+  border: 2px dashed whitesmoke;
+  height: 20vh;
   width: 45vh;
   padding: 100px;
 }
