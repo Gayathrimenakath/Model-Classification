@@ -9,11 +9,21 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
     console.log('maximum',correctAnswer)
 
     const calcScore = (event) => {
-        if (correctAnswer === event.target.value ){
+        
+        if (event.target.value  === correctAnswer ){
             console.log('correct answer', event.target.value)
             changeScore((prevState) => ({
                 ...prevState,
                 correct: score.correct + 1,
+                total: score.total +1,
+              }));
+        }
+        else if (event.target.value  === 'NA' ){
+            console.log('clickeddddddddddddddddddd')
+            changeScore((prevState) => ({
+                ...prevState,
+                notAnnounced: score.notAnnounced + 1,
+                total: score.total +1,
               }));
         }
         else{
@@ -21,6 +31,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
             changeScore((prevState) => ({
                 ...prevState,
                 wrong: score.wrong+1,
+                total: score.total +1,
               }));
         }
         
@@ -69,7 +80,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
         <span>&nbsp;</span>
         <div>
         <span>&nbsp;</span>
-      <button className ="answer" onClick={calcScore} >None of the above</button>
+      <button className ="na" onClick={calcScore} value={'NA'}>None of the above</button>
       </div>
 
       </div>

@@ -29,7 +29,10 @@ function App() {
   const [images, setImages] = useState([]);
   const [scores, setScores] = useState({
     correct:0,
-    wrong:0});
+    wrong:0,
+    notAnnounced: 0,
+    total:0});
+
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.map(file => {
       setSelectedFile(acceptedFiles[0])
@@ -114,6 +117,8 @@ function App() {
 
       {(!uploaded) ? <Dropzone onDrop={onDrop} accept={"image/*"} value={selectedFile}/>: 
       <ImageList images={images}  />}
+       
+       
         {((scores.correct !== 0) || (scores.wrong !== 0) ) && (
          <ScoreTable score={scores} />
       )}

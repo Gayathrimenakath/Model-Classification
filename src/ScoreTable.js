@@ -24,6 +24,26 @@ const items = [{
     item: 'Wrong',
     month: 'A:E',
     savings: 0,
+  },
+  {
+    item: 'NA',
+    month: 'C.A',
+    savings: score.notAnnounced,
+  },
+  {
+    item: 'NA',
+    month: 'A:E',
+    savings: 0,
+  },
+  {
+    item: 'G.A',
+    month: 'C.A',
+    savings: score.total,
+  },
+  {
+    item: 'G.A',
+    month: 'A:E',
+    savings: 0,
   }
 ];
 
