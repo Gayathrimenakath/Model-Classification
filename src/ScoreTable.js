@@ -13,7 +13,7 @@ const items = [{
   {
     item: 'Right',
     month: 'A:E',
-    savings: 0,
+    savings: score.cLoss,
   },
   {
     item: 'Wrong',

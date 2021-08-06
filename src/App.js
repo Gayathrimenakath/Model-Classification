@@ -31,7 +31,8 @@ function App() {
     correct:0,
     wrong:0,
     notAnnounced: 0,
-    total:0});
+    total:0,
+    cLoss:0});
 
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.map(file => {

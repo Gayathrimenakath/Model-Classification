@@ -10,16 +10,16 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
 
     const calcScore = (event) => {
         
-        if (event.target.value  === correctAnswer ){
-            console.log('correct answer', event.target.value)
+        if (event.target.value  === correctAnswer ){     
+            
             changeScore((prevState) => ({
                 ...prevState,
                 correct: score.correct + 1,
                 total: score.total +1,
+                cLoss: score.cLoss+ parseFloat((-(1)*Math.log(prediction[correctAnswer] )).toFixed(2)),
               }));
         }
         else if (event.target.value  === 'NA' ){
-            console.log('clickeddddddddddddddddddd')
             changeScore((prevState) => ({
                 ...prevState,
                 notAnnounced: score.notAnnounced + 1,
@@ -27,7 +27,6 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
               }));
         }
         else{
-            console.log('wrong answer' )
             changeScore((prevState) => ({
                 ...prevState,
                 wrong: score.wrong+1,
