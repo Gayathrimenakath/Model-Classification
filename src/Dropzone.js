@@ -9,11 +9,6 @@ const Dropzone = ({ onDrop, accept }) => {
     accept
   });
 
-  /* 
-    useDropzone hooks exposes two functions called getRootProps and getInputProps
-    and also exposes isDragActive boolean
-  */
-
   return (
     <div {...getRootProps()}>
       <input className="dropzone-input" {...getInputProps()} />
