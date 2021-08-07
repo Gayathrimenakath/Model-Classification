@@ -26,3 +26,8 @@ rect{
 .text-red{
     fill: red;
 }
+
+.na{
+    background-color:saddlebrown !important;
+    margin-top: 12px;
+}
