@@ -62,9 +62,18 @@ function App() {
     axios
       .post('http://54.194.131.169:8080/predictions/densenet161', formData, config)
       .then(function (response) {
-        if (response.status === 200)
-            setPrediction(response.data)
+        if (response.status === 200){
+          var predictedScore = response.data
+          for (var key in predictedScore) {
+            if (predictedScore.hasOwnProperty(key)) {
+              predictedScore[key] = (predictedScore[key]*100).toFixed(0);
+            }
+          }
+          setPrediction(predictedScore)
             setUploaded(true)
+        }
+
+            
     })
     .catch(function (error) {
         console.log(error);

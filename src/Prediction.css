@@ -15,3 +15,14 @@ rect{
     color: whitesmoke;
 }
 
+.text-green{
+    fill: rgb(128, 248, 7);
+}
+
+.text-lightgreen{
+    fill: rgb(180, 207, 152);
+}
+
+.text-red{
+    fill: red;
+}
