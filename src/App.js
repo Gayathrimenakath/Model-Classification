@@ -29,6 +29,7 @@ function App() {
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.map(file => {
       setSelectedFile(acceptedFiles[0])
+      setUploaded(true)
 
       const reader = new FileReader();
       reader.onload = function(e) {
@@ -65,7 +66,7 @@ function App() {
       .then(function (response) {
         if (response.status === 200){
           setPrediction(response.data)
-          setUploaded(true)
+          
         }         
     })
     .catch(function (error) {
@@ -101,10 +102,10 @@ function App() {
           <ImageList images={images} />}
         </div>
       </div>
-
+     {console.log('FILE',!uploaded)}
       <span>&nbsp;</span>
       {(prediction.length ===  0) ?
-        <button className ="submit" disabled = {!selectedFile} onClick={submitForm}>Submit</button>:
+        <button className ="submit" disabled = {!uploaded} onClick={submitForm}>Submit</button>:
         <Prediction prediction={prediction} clearState={clearState} changeScore = {setScores} score={scores}/>
       }  
     </main>
