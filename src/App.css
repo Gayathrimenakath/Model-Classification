@@ -11,15 +11,24 @@ body {
   color:rgb(231, 228, 228);
 }
 
-
-#container {
-  display: flex;                       
-  flex-direction: row;                 
-  flex-wrap: nowrap;                   
-  justify-content: flex-start;         
+ #container {
+  text-align: center;
+  position: relative;
 }
 
-.text-center, .file-list   {
+#left {
+  float: left;
+  width: 100px;
+  padding-left: 50px;
+}
+
+#right{
+  display:block;
+
+  margin:  auto;
+}
+
+.text-center, .file-list  {
   display: flex;
   height: 100%;
   justify-content: center !important;
@@ -30,7 +39,8 @@ body {
  button{
   /*Change the width as much as you like, but make sure 
   margin-left and margin-right + width = 100%*/
-
+  margin:auto;
+  display:block;
   width: 150px;
   height: 50px;
   background-color: teal;

@@ -66,7 +66,6 @@ function App() {
       .then(function (response) {
         if (response.status === 200){
           setPrediction(response.data)
-          
         }         
     })
     .catch(function (error) {
@@ -83,7 +82,6 @@ function App() {
     setUploaded(false)
     setSelectedFile([])
     setPrediction([])
-    
   };
 
 
@@ -102,7 +100,7 @@ function App() {
           <ImageList images={images} />}
         </div>
       </div>
-     {console.log('FILE',!uploaded)}
+     
       <span>&nbsp;</span>
       {(prediction.length ===  0) ?
         <button className ="submit" disabled = {!uploaded} onClick={submitForm}>Submit</button>:
