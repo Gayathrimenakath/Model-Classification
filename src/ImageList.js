@@ -3,6 +3,8 @@ import React, { useRef } from "react";
 const Image = ({ image}) => {
   const ref = useRef(null);
 
+
+  //show the uploaded image
   return (
     <div ref={ref} className="file-item">
       <img alt={`img - ${image.id}`} src={image.src} className="file-img" />

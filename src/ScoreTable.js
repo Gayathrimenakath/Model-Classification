@@ -20,7 +20,7 @@ function ScoreTable({score}) {
       {
         row: 'Wrong',
         column: 'A:E',
-        value: 0,
+        value: score.wLoss,
       },
       {
         row: 'NA',

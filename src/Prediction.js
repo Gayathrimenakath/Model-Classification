@@ -8,6 +8,9 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
   var correctAnswer = Object.keys(prediction).reduce((a, b) => prediction[a] > prediction[b] ? a : b)
   console.log('maximum',correctAnswer)
 
+  var i = -1
+  var target = new Array(4).fill(0);
+
 
     //store the predicted scores in a variable by converting them to percentage with no decimal value
     var predictedScore =JSON.parse(JSON.stringify(prediction));
@@ -16,7 +19,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
         predictedScore[key] = (predictedScore[key]*100).toFixed(0);
       }
     }
-    console.log('answer',prediction)    
+   
     
     //add classname to the text to show color codes for scores
     function textClass (keyName){
@@ -31,15 +34,29 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
       }
     }
 
+    //calculate the loss function
+    function calcLoss(target){
+      var i = 0;
+      var loss = 0;
+      for (var key in prediction) {
+        loss += (-(target[i]*Math.log(prediction[key]))).toFixed(2);
+        i++
+      }
+      return parseFloat(loss)
+    }
+
 
     //calculate scores based on the answer chosen by the user
     const calcScore = (event) => {
+      target[event.target.id] = 1
+      target.join()
+
         if (event.target.value  === correctAnswer ){     
             changeScore((prevState) => ({
                 ...prevState,
                 correct: score.correct + 1,
                 total: score.total +1,
-                cLoss: score.cLoss+ parseFloat((-(1)*Math.log(prediction[correctAnswer] )).toFixed(2)),
+                cLoss: score.cLoss+ calcLoss(target),
               }));
         }
         else if (event.target.value  === 'NA' ){
@@ -54,6 +71,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
                 ...prevState,
                 wrong: score.wrong+1,
                 total: score.total +1,
+                wLoss: score.wLoss+ calcLoss(target),
               }));
         }
         
@@ -69,6 +87,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
     {prediction && (
       <div className="predict">
         {Object.keys(prediction).map(function(keyName, keyIndex) {
+          i++
     		return (
                 <div className = 'rowC' key={keyName}>
                     <div>
@@ -78,19 +97,20 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
                             <text x="50%" y="80%" fill="white" fontSize="16" fontWeight="bold" textAnchor="middle" > {keyName}</text> 
                         </svg>
                     </div>
-                    <button className ="answer" onClick={calcScore} value = {keyName} fill="yellowgreen" >Correct answer</button>
+                    <button className ="answer" onClick={calcScore} id={i} value = {keyName} fill="yellowgreen" >Correct answer</button>
                 </div> 
     		)
+        
 		})}
         <span>&nbsp;</span>
         <div>
             <span>&nbsp; </span>
-            <button className ="na" onClick={calcScore} value={'NA'}>None of the above</button>
+            <button className ="na" onClick={calcScore} value={'NA'}>None of the above!</button>
         </div>
       </div>
     )} 
     </div>
  
-        )}
+  )}
 
 export default Prediction;

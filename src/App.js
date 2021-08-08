@@ -21,7 +21,8 @@ function App() {
     wrong:0,
     notAnnounced: 0,
     total:0,
-    cLoss:0});
+    cLoss:0,
+    wLoss:0});
 
   //get the file uploaded by the user
   const onDrop = useCallback(acceptedFiles => {
