@@ -12,12 +12,9 @@ import "./App.css";
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
-
   const isInitialMount = useRef(true);
-
   const [prediction, setPrediction] = useState([]);
   const [uploaded, setUploaded] = useState(false)
-  
   const [images, setImages] = useState([]);
   const [scores, setScores] = useState({
     correct:0,
@@ -26,6 +23,7 @@ function App() {
     total:0,
     cLoss:0});
 
+  //get the file uploaded by the user
   const onDrop = useCallback(acceptedFiles => {
     acceptedFiles.map(file => {
       setSelectedFile(acceptedFiles[0])
@@ -52,40 +50,35 @@ function App() {
    }
  },[])
 
+  //send a POST request with the uploaded image
   const submitForm = (event) => {
     var formData = new FormData();
     formData.append("data", selectedFile);
     
     let config={
-      headers: {'Content-Type' : 'image/jpg'}
+      headers: {'Content-Type' : 'image/*'}
     }
     axios
       .post('http://54.194.131.169:8080/predictions/densenet161', formData, config)
       .then(function (response) {
         if (response.status === 200){
-          var predictedScore = response.data
-          for (var key in predictedScore) {
-            if (predictedScore.hasOwnProperty(key)) {
-              predictedScore[key] = (predictedScore[key]*100).toFixed(0);
-            }
-          }
-          setPrediction(predictedScore)
-            setUploaded(true)
-        }
-
-            
+          setPrediction(response.data)
+          setUploaded(true)
+        }         
     })
     .catch(function (error) {
         console.log(error);
     });
+
+    event.preventDefault();
   };
 
+  //clear the state and set it to initial state
   const clearState = () =>{
     setImages([])
-      setUploaded(false)
-      setSelectedFile([])
-      setPrediction([])
-    
+    setUploaded(false)
+    setSelectedFile([])
+    setPrediction([])
   };
 
 
@@ -93,21 +86,23 @@ function App() {
     <main className="App">
       <h1 className="text-center">DenseNet Image Classification Example</h1>
 
-      {(!uploaded) ? <Dropzone onDrop={onDrop} accept={"image/*"} value={selectedFile}/>: 
-      <ImageList images={images}  />}
-       
-       
-        {((scores.correct !== 0) || (scores.wrong !== 0) ) && (
-         <ScoreTable score={scores} />
-      )}
-      
+      <div id="container">
+        <div id="left">
+          {((scores.correct !== 0) || (scores.wrong !== 0) ) && (
+          <ScoreTable score={scores} />
+          )}
+        </div>
+        <div id="right">
+          {(!uploaded) ? <Dropzone onDrop={onDrop} accept={"image/*"} value={selectedFile}/>: 
+          <ImageList images={images} />}
+        </div>
+      </div>
+
       <span>&nbsp;</span>
-        {(prediction.length ===  0) ?
-         <button className ="submit" disabled = {!selectedFile} onClick={submitForm}>Submit</button>:
-          <Prediction prediction={prediction} clearState={clearState} changeScore = {setScores} score={scores}/>
-        }
-   
-       
+      {(prediction.length ===  0) ?
+        <button className ="submit" disabled = {!selectedFile} onClick={submitForm}>Submit</button>:
+        <Prediction prediction={prediction} clearState={clearState} changeScore = {setScores} score={scores}/>
+      }  
     </main>
   );
 }

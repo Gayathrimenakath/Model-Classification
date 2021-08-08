@@ -1,19 +1,29 @@
-import { func } from "prop-types";
 import React from "react";
 
 import "./Prediction.css";
 
 const Prediction = ({ prediction, clearState, changeScore, score }) => {
+  
+  //Get the correct answer based on the key with the highest value
+  var correctAnswer = Object.keys(prediction).reduce((a, b) => prediction[a] > prediction[b] ? a : b)
+  console.log('maximum',correctAnswer)
 
-    var correctAnswer = Object.keys(prediction).reduce((a, b) => prediction[a] > prediction[b] ? a : b)
-    console.log('maximum',correctAnswer)
 
+    //store the predicted scores in a variable by converting them to percentage with no decimal value
+    var predictedScore =JSON.parse(JSON.stringify(prediction));
+    for (var key in predictedScore) {
+      if (predictedScore.hasOwnProperty(key)) {
+        predictedScore[key] = (predictedScore[key]*100).toFixed(0);
+      }
+    }
+    console.log('answer',prediction)    
     
+    //add classname to the text to show color codes for scores
     function textClass (keyName){
-      if (prediction[keyName]>50){
+      if (predictedScore[keyName]>50){
         return 'text-green'
       }
-      else if (prediction[keyName]>25){
+      else if (predictedScore[keyName]>25){
         return 'text-lightgreen'
       }
       else{
@@ -22,6 +32,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
     }
 
 
+    //calculate scores based on the answer chosen by the user
     const calcScore = (event) => {
         if (event.target.value  === correctAnswer ){     
             changeScore((prevState) => ({
@@ -63,7 +74,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
                     <div>
                         <svg width="150" height="100" key={keyName}>
                             <rect x="0" y="0" width="150" height="100" fill="black"/>
-                            <text className={textClass(keyName)} x="50%" y="40%"  fontSize="16" fontWeight="bold" textAnchor="middle" >{prediction[keyName]}</text>
+                            <text className={textClass(keyName)} x="50%" y="40%"  fontSize="16" fontWeight="bold" textAnchor="middle" >{predictedScore[keyName]}</text>
                             <text x="50%" y="80%" fill="white" fontSize="16" fontWeight="bold" textAnchor="middle" > {keyName}</text> 
                         </svg>
                     </div>
