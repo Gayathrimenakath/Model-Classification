@@ -22,7 +22,8 @@ function App() {
     notAnnounced: 0,
     total:0,
     cLoss:0,
-    wLoss:0});
+    wLoss:0,
+    genAvg:0});
 
   //get the file uploaded by the user
   const onDrop = useCallback(acceptedFiles => {
@@ -74,12 +75,14 @@ function App() {
     event.preventDefault();
   };
 
+
   //clear the state and set it to initial state
   const clearState = () =>{
     setImages([])
     setUploaded(false)
     setSelectedFile([])
     setPrediction([])
+    
   };
 
 
@@ -89,7 +92,7 @@ function App() {
 
       <div id="container">
         <div id="left">
-          {((scores.correct !== 0) || (scores.wrong !== 0) ) && (
+          {(scores.total !== 0)  && (
           <ScoreTable score={scores} />
           )}
         </div>

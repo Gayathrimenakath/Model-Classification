@@ -6,11 +6,9 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
   
   //Get the correct answer based on the key with the highest value
   var correctAnswer = Object.keys(prediction).reduce((a, b) => prediction[a] > prediction[b] ? a : b)
-  console.log('maximum',correctAnswer)
 
   var i = -1
-  var target = new Array(4).fill(0);
-
+  var target = new Array(5).fill(0);
 
     //store the predicted scores in a variable by converting them to percentage with no decimal value
     var predictedScore =JSON.parse(JSON.stringify(prediction));
@@ -19,7 +17,7 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
         predictedScore[key] = (predictedScore[key]*100).toFixed(0);
       }
     }
-   
+
     
     //add classname to the text to show color codes for scores
     function textClass (keyName){
@@ -38,11 +36,12 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
     function calcLoss(target){
       var i = 0;
       var loss = 0;
+  
       for (var key in prediction) {
-        loss += (-(target[i]*Math.log(prediction[key]))).toFixed(2);
+        loss += (-(target[i]*Math.log(prediction[key])));
         i++
       }
-      return parseFloat(loss)
+      return loss.toFixed(2)
     }
 
 
@@ -50,14 +49,16 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
     const calcScore = (event) => {
       target[event.target.id] = 1
       target.join()
-
+      
         if (event.target.value  === correctAnswer ){     
             changeScore((prevState) => ({
                 ...prevState,
                 correct: score.correct + 1,
                 total: score.total +1,
-                cLoss: score.cLoss+ calcLoss(target),
+                cLoss: parseFloat(score.cLoss)+ parseFloat(calcLoss(target)),
+                
               }));
+              
         }
         else if (event.target.value  === 'NA' ){
             changeScore((prevState) => ({
@@ -71,8 +72,10 @@ const Prediction = ({ prediction, clearState, changeScore, score }) => {
                 ...prevState,
                 wrong: score.wrong+1,
                 total: score.total +1,
-                wLoss: score.wLoss+ calcLoss(target),
+                wLoss: parseFloat(score.wLoss)+ parseFloat(calcLoss(target)),
+                
               }));
+             
         }
         
         clearState()

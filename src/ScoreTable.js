@@ -2,6 +2,8 @@ import React from 'react';
 import "./ScoreTable.css";
 
 function ScoreTable({score}) {
+   var ga =  (((score.correct*score.cLoss) + (score.wrong*score.wLoss)) / (score.correct+score.wrong)).toFixed(2)
+   
     const items = [{
         row: 'Right',
         column: 'C.A',
@@ -30,17 +32,17 @@ function ScoreTable({score}) {
       {
         row: 'NA',
         column: 'A:E',
-        value: 0,
+        value: '-',
       },
       {
-        row: 'G.A',
+        row: '# | G.A',
         column: 'C.A',
         value: score.total,
       },
       {
-        row: 'G.A',
+        row: '# | G.A',
         column: 'A:E',
-        value: 0,
+        value: parseFloat(ga),
       }
     ];
     const groupBy = (objectArray, property) => {
