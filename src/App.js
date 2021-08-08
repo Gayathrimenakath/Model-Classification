@@ -2,6 +2,9 @@ import axios from 'axios';
 import React, { useCallback, useState, useEffect,useRef  } from "react";
 import cuid from "cuid";
 
+import { library } from '@fortawesome/fontawesome-svg-core' //allows later to just use icon name to render-them
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+
 import ImageList from "./ImageList";
 import ScoreTable from "./ScoreTable";
 import Dropzone from "./Dropzone";
@@ -9,6 +12,7 @@ import Prediction from "./Prediction";
 
 import "./App.css";
 
+library.add(faCheck, faTimes)
 
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
